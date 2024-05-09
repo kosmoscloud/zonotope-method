@@ -23,15 +23,24 @@ class zonotope:
         self.center = center
         self.generators = generators
         self.hypercube = hypercube(center)
+        self.vertices = self.__getvertices()
+
+    def __getvertices(self):
+        return self.hypercube.vertices + np.dot(self.generators, self.hypercube.vertices.T).T
     
-G = np.array([[1, 0, 1],
+    
+G_rotate = np.array([[1, 0, 1],
                 [0, cos(45), -sin(45)],
                 [0, sin(45), cos(45)]])
 
-Z = zonotope(np.array([0, 0, 0]), G)
+G_scale = np.array([[2, 0, 0],
+                [0, 2, 0],
+                [0, 0, 2]])
+
+Z = zonotope(np.array([0, 0, 0]), G_scale)
 
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
-points = Z.hypercube.vertices
+points = Z.vertices
 ax.scatter(points[:, 0], points[:, 1], points[:, 2])
 plt.show()
