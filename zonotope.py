@@ -28,6 +28,19 @@ class zonotope:
     def __getvertices(self):
         return self.hypercube.vertices + np.dot(self.generators, self.hypercube.vertices.T).T
     
+    def translate(self, vector):
+        self.center += vector
+        self.vertices += vector
+
+    def contains(self, point):
+        return np.all(np.abs(point - self.center) <= np.sum(np.abs(self.generators), axis=1))
+    
+    def calculate_distance(self, other):
+        if isinstance(other, zonotope):
+            return np.linalg.norm(self.center - other.center)
+        else:
+            return np.linalg.norm(self.center - other)
+    
     
 G_rotate = np.array([[1, 0, 1],
                 [0, cos(45), -sin(45)],
