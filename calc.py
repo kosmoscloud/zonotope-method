@@ -69,7 +69,7 @@ def branch_and_prune(box: IntervalVector, A: IntervalMatrix, b: IntervalVector, 
 
     return feasible_boxes
 
-def plot_boxes(boxes):
+def plot_boxes(boxes, save=False, filename="boxes.png"):
     colors = ['blue', 'red', 'green', 'yellow', 'purple', 'orange']
     plt.figure(figsize=(6, 6))
     for i, depth in enumerate(boxes):
@@ -80,4 +80,8 @@ def plot_boxes(boxes):
             plt.gca().add_patch(plt.Rectangle(lower_left, width, height, fill=None, edgecolor=colors[i%len(colors)], linewidth=1))
     plt.xlim(-11, 11)
     plt.ylim(-11, 11)
-    plt.show()
+
+    if save:
+        plt.savefig("images/" + filename)
+    else:
+        plt.show()
