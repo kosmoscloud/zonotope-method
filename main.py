@@ -1,6 +1,5 @@
 from intervals import Interval, IntervalVector, IntervalMatrix
-from calc import branch_and_prune
-import matplotlib.pyplot as plt
+from calc import branch_and_prune, plot_boxes
 
 def main():
     
@@ -25,19 +24,7 @@ def main():
 
     # Plot the resulting feasible boxes
     plot_boxes([boxes_max_depth, boxes_mid_depth, boxes_low_depth])
-
-def plot_boxes(boxes):
-    colors = ['blue', 'red', 'green', 'yellow', 'purple', 'orange']
-    plt.figure(figsize=(6, 6))
-    for i, depth in enumerate(boxes):
-        for box in depth:
-            lower_left = (box.intervals[0].lower, box.intervals[1].lower)
-            width = box.intervals[0].upper - box.intervals[0].lower
-            height = box.intervals[1].upper - box.intervals[1].lower
-            plt.gca().add_patch(plt.Rectangle(lower_left, width, height, fill=None, edgecolor=colors[i%len(colors)], linewidth=1))
-    plt.xlim(-11, 11)
-    plt.ylim(-11, 11)
-    plt.show()
         
 if __name__ == "__main__":
     main()
+    
