@@ -17,5 +17,4 @@ def solveIPLS(matrix, vector, output_file="boxes.png"):
 if __name__ == "__main__":
     solveIPLS(IntervalMatrix([[Interval(1, 2), Interval(4, 7)], [Interval(-1, 1), Interval(1, 4)]]), IntervalVector([Interval(4, 7), Interval(1, 3)]), "result1.png")
     solveIPLS(IntervalMatrix([[Interval(4, 5), Interval(1, 3)], [Interval(-5, -3), Interval(2, 3)]]), IntervalVector([Interval(4, 5), Interval(1, 6)]), "result2.png")
-    solveIPLS(IntervalMatrix([[Interval(1, 3), Interval(4, 5)], [Interval(-1, 3), Interval(7, 8)]]), IntervalVector([Interval(1, 2), Interval(4, 6)]), "result3.png")
-
+    solveIPLS(IntervalMatrix([[Interval(4, 5), Interval(1, 3)], [Interval(-1, 3), Interval(1, 2)]]), IntervalVector([Interval(1, 2), Interval(4, 6)]), "result3.png")
