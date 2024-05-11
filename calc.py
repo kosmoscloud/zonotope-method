@@ -10,7 +10,10 @@ def infeasibility_test(box : IntervalVector, A : IntervalMatrix, b: IntervalVect
     Returns:
         bool: True if the box is infeasible, False otherwise.
     """
+    # Compute the result of multiplying the matrix A with the box
     result = A * box
+
+    # Check if there is any interval that does not overlap with the target interval
     for result_interval, target_interval in zip(result.intervals, b.intervals):
         if result_interval.upper < target_interval.lower or result_interval.lower > target_interval.upper:
             return True  # No overlap, infeasible
@@ -25,7 +28,10 @@ def feasibility_test(box : IntervalVector, A : IntervalMatrix, b: IntervalVector
     Returns:
         bool: True if the box is entirely feasible, False otherwise.
     """
+    # Compute the result of multiplying the matrix A with the box
     result = A * box
+
+    # Check if all intervals are entirely contained within the target intervals
     for result_interval, target_interval in zip(result.intervals, b.intervals):
         if not (result_interval.lower >= target_interval.lower and result_interval.upper <= target_interval.upper):
             return False  # Not entirely contained
@@ -35,6 +41,7 @@ def split_box(box):
     """Split the given box along its widest dimension into two halves."""
     max_width = 0
     max_index = -1
+    # Find the widest dimension of the box
     for i, interval in enumerate(box.intervals):
         width = interval.upper - interval.lower
         if width > max_width:
@@ -72,6 +79,8 @@ def branch_and_prune(box: IntervalVector, A: IntervalMatrix, b: IntervalVector, 
 def plot_boxes(boxes, save=False, filename="boxes.png"):
     colors = ['blue', 'red', 'green', 'yellow', 'purple', 'orange']
     plt.figure(figsize=(6, 6))
+
+    # Plot the boxes with different colors based on the depth
     for i, depth in enumerate(boxes):
         for box in depth:
             lower_left = (box.intervals[0].lower, box.intervals[1].lower)
